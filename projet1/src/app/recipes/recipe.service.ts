@@ -7,22 +7,28 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class RecipeService {
   recipesChanged = new Subject<RecipeModel[]>();
-  private recipes: RecipeModel[] = [
-    new RecipeModel(
-      'A test Recipe 1',
-      'This is simply a test',
-      'https://cdn.pixabay.com/photo/2016/06/15/19/09/food-1459693_960_720.jpg',
-      [new IngredientModel('Meat', 1), new IngredientModel('French Fries', 20)]
-    ),
-    new RecipeModel(
-      'A test Recipe 2',
-      'This is simply a test',
-      'https://cdn.pixabay.com/photo/2016/06/15/19/09/food-1459693_960_720.jpg',
-      [new IngredientModel('Buns', 2), new IngredientModel('Meat', 1)]
-    ),
-  ];
+  // private recipes: RecipeModel[] = [
+  //   new RecipeModel(
+  //     'A test Recipe 1',
+  //     'This is simply a test',
+  //     'https://cdn.pixabay.com/photo/2016/06/15/19/09/food-1459693_960_720.jpg',
+  //     [new IngredientModel('Meat', 1), new IngredientModel('French Fries', 20)]
+  //   ),
+  //   new RecipeModel(
+  //     'A test Recipe 2',
+  //     'This is simply a test',
+  //     'https://cdn.pixabay.com/photo/2016/06/15/19/09/food-1459693_960_720.jpg',
+  //     [new IngredientModel('Buns', 2), new IngredientModel('Meat', 1)]
+  //   ),
+  // ];
+  private recipes: RecipeModel[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  setRecipes(recipes: RecipeModel[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();
